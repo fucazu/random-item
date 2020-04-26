@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seleciona um random</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+  <p>Insira os valores separados por vírgula e/ou quebra de linha</p>
+  <textarea rows="4" type="text" id="list"></textarea>
+  <div>
+    <button id="random">Gerar random</button>
+    <p id="error" class="hide">Valor inválido inserido</p>
+    <div class="hide" id="divResult">
+      <p>Resultado</p>
+      <p id="result"></p>
+    </div>
+  </div>
+  <script>
+    const resultElement = document.getElementById('result');
+    const errorElement = document.getElementById('error');
+    const randomElement = document.getElementById('random');
+    const listElement = document.getElementById('list');
+    const divResultElement = document.getElementById('divResult');
+
+    function getRandomValue() {
+      divResultElement.classList.add('hide');
+      const values = listElement.value;
+      if (!values || !values.length) {
+        errorElement.classList.remove('hide')
+        return setTimeout(() => errorElement.classList.add('hide'), 2000)
+      }
+      const items = values.split(/\n|,/).filter(it => it);
+      resultElement.innerText = items[Math.floor(Math.random() * items.length)];
+      divResultElement.classList.remove('hide');
+    }
+    randomElement.addEventListener('click', getRandomValue)
+  </script>
+  <style>
+    body {
+      background-color: #0099a4;
+      margin: 0 auto;
+      margin: 20px;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+    }
+    #list {
+      width: 80%;
+    }
+    .hide {
+      display: none;
+    }
+  </style>
+</body>
+</html>
